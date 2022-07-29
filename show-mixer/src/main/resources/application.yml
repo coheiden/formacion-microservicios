@@ -16,6 +16,12 @@ spring:
           consumer:
             concurrency: 1
             useNativeDecoding: true
+        reviews:
+          content-type: application/avro
+          destination: show-mixer-input-reviews
+          consumer:
+            concurrency: 1
+            useNativeDecoding: true
         output:
           content-type: application/avro
           destination: show-mixer-output
@@ -32,6 +38,11 @@ spring:
                 valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
                 applicationId: ${spring.application.name}
             platforms:
+              consumer:
+                keySerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+                valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+                applicationId: ${spring.application.name}
+            reviews:
               consumer:
                 keySerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
                 valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde

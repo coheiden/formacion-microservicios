@@ -2,15 +2,15 @@ package com.hiberus.show.mixer.topology;
 
 import com.hiberus.show.library.topology.InputPlatformEvent;
 import com.hiberus.show.library.topology.InputPlatformKey;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+import com.hiberus.show.library.topology.OutputShowListKey;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InputPlatformKeyMapper implements KeyValueMapper<InputPlatformKey, InputPlatformEvent, OutputShowPlatformListKey> {
+public class InputPlatformKeyMapper implements KeyValueMapper<InputPlatformKey, InputPlatformEvent, OutputShowListKey> {
 
     @Override
-    public OutputShowPlatformListKey apply(final InputPlatformKey key, final InputPlatformEvent value) {
-        return OutputShowPlatformListKey.newBuilder().setIsan(value.getIsan()).build();
+    public OutputShowListKey apply(final InputPlatformKey key, final InputPlatformEvent value) {
+        return OutputShowListKey.newBuilder().setIsan(value.getIsan()).build();
     }
 }

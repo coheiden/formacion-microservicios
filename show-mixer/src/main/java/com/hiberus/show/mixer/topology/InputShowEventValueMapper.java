@@ -1,21 +1,22 @@
 package com.hiberus.show.mixer.topology;
 
 import com.hiberus.show.library.topology.InputShowEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListEvent;
+import com.hiberus.show.library.topology.OutputShowListEvent;
 import org.apache.kafka.streams.kstream.ValueMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-public class InputShowEventValueMapper implements ValueMapper<InputShowEvent, OutputShowPlatformListEvent> {
+public class InputShowEventValueMapper implements ValueMapper<InputShowEvent, OutputShowListEvent> {
 
     @Override
-    public OutputShowPlatformListEvent apply(InputShowEvent value) {
-        return OutputShowPlatformListEvent.newBuilder()
+    public OutputShowListEvent apply(InputShowEvent value) {
+        return OutputShowListEvent.newBuilder()
                 .setEventType(value.getEventType())
                 .setName(value.getName())
                 .setPlatforms(new ArrayList<>())
+                .setReviews(new ArrayList<>())
                 .build();
     }
 }

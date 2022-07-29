@@ -9,12 +9,15 @@ public interface BinderProcessor {
     String OUTPUT = "output";
     String SHOW = "shows";
     String PLATFORM = "platforms";
+    String REVIEW = "reviews";
 
     @Input(SHOW)
     KStream<?, ?> show();
 
     @Input(PLATFORM)
     KStream<?, ?> platform();
+    @Input(REVIEW)
+    KStream<?, ?> review();
 
     @Output(OUTPUT)
     KStream<?, ?> output();

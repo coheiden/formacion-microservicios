@@ -1,9 +1,8 @@
 package com.hiberus.show.mixer.topology;
 
 import com.hiberus.show.library.topology.EventType;
-import com.hiberus.show.library.topology.InputPlatformEvent;
 import com.hiberus.show.library.topology.InputShowEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+import com.hiberus.show.library.topology.OutputShowListKey;
 import com.hiberus.show.mixer.service.ShowMixerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +16,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ShowFilter implements Predicate<OutputShowPlatformListKey, InputShowEvent> {
+public class ShowFilter implements Predicate<OutputShowListKey, InputShowEvent> {
 
     private final InteractiveQueryService queryService;
 
-    private ReadOnlyKeyValueStore<OutputShowPlatformListKey, InputShowEvent> showStore;
+    private ReadOnlyKeyValueStore<OutputShowListKey, InputShowEvent> showStore;
 
     @Override
-    public boolean test(final OutputShowPlatformListKey key, final InputShowEvent current) {
+    public boolean test(final OutputShowListKey key, final InputShowEvent current) {
         final boolean passes;
         final InputShowEvent previous = showStore().get(key);
 
@@ -52,7 +51,7 @@ public class ShowFilter implements Predicate<OutputShowPlatformListKey, InputSho
         return passes;
     }
 
-    private ReadOnlyKeyValueStore<OutputShowPlatformListKey, InputShowEvent> showStore() {
+    private ReadOnlyKeyValueStore<OutputShowListKey, InputShowEvent> showStore() {
         if (showStore == null) {
             showStore = queryService.getQueryableStore(ShowMixerServiceImpl.SHOW_TABLE, QueryableStoreTypes.keyValueStore());
         }

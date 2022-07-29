@@ -2,7 +2,7 @@ package com.hiberus.show.mixer.topology;
 
 import com.hiberus.show.library.topology.EventType;
 import com.hiberus.show.library.topology.InputPlatformEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+import com.hiberus.show.library.topology.OutputShowListKey;
 import com.hiberus.show.library.topology.PlatformListEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.kstream.Aggregator;
@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class PlatformListAggregator implements Aggregator<OutputShowPlatformListKey, InputPlatformEvent, PlatformListEvent>, Initializer<PlatformListEvent> {
+public class PlatformListAggregator implements Aggregator<OutputShowListKey, InputPlatformEvent, PlatformListEvent>, Initializer<PlatformListEvent> {
 
     @Override
-    public PlatformListEvent apply(final OutputShowPlatformListKey key, final InputPlatformEvent value, PlatformListEvent aggregate) {
+    public PlatformListEvent apply(final OutputShowListKey key, final InputPlatformEvent value, PlatformListEvent aggregate) {
         if (EventType.DELETE.equals(value.getEventType())) {
             aggregate.setPlatforms(aggregate.getPlatforms().stream().filter(p -> !p.equals(value.getPlatform())).collect(Collectors.toList()));
         } else {

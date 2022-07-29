@@ -1,13 +1,7 @@
 package com.hiberus.show.mixer;
 
 import com.hiberus.kafka.manager.KafkaManager;
-import com.hiberus.show.library.topology.EventType;
-import com.hiberus.show.library.topology.InputPlatformEvent;
-import com.hiberus.show.library.topology.InputPlatformKey;
-import com.hiberus.show.library.topology.InputShowEvent;
-import com.hiberus.show.library.topology.InputShowKey;
-import com.hiberus.show.library.topology.OutputShowPlatformListEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+import com.hiberus.show.library.topology.*;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,14 +12,20 @@ import java.util.Date;
 
 public class InsertDataTest {
 
-    //private static final Show SHOW = Show.FIREFLY;
-    private static final Show SHOW = Show.TENET;
+    private static final Show SHOW = Show.FIREFLY;
+    //private static final Show SHOW = Show.TENET;
 
     private static final Platform PLATFORM = Platform.FILMIN;
     //private static final Platform PLATFORM = Platform.HBO;
 
+    private static final Review REVIEW= Review.GOOD;
+    //private static final Review REVIEW= Review.BAD;
+
+
+
     private static final String SHOWS_TOPIC = "show-mixer-input-shows";
     private static final String PLATFORMS_TOPIC = "show-mixer-input-platforms";
+    private static final String REVIEWS_TOPIC = "show-mixer-input-reviews";
     private static final String OUTPUT_TOPIC = "show-mixer-output";
 
     @Before
@@ -41,7 +41,7 @@ public class InsertDataTest {
         addShow(show, EventType.CREATE);
         addPlatform(show, platform, EventType.CREATE);
 
-        final ConsumerRecords<OutputShowPlatformListKey, OutputShowPlatformListEvent> records =
+        final ConsumerRecords<OutputShowListKey, OutputShowListEvent> records =
                 KafkaManager.receiveRecords(OUTPUT_TOPIC, Duration.ofSeconds(2));
 
         Assert.assertEquals(1, records.count());
@@ -55,12 +55,12 @@ public class InsertDataTest {
         addShow(show, EventType.CREATE);
         addPlatform(show, platform, EventType.CREATE);
 
-        ConsumerRecords<OutputShowPlatformListKey, OutputShowPlatformListEvent> records =
+        ConsumerRecords<OutputShowListKey, OutputShowListEvent> records =
                 KafkaManager.receiveRecords(OUTPUT_TOPIC, Duration.ofSeconds(2));
 
         Assert.assertEquals(1, records.count());
 
-        OutputShowPlatformListEvent event = records.iterator().next().value();
+        OutputShowListEvent event = records.iterator().next().value();
 
         Assert.assertEquals(show.name, event.getName().toString());
 
@@ -97,6 +97,12 @@ public class InsertDataTest {
     }
 
     @Test
+    public void deleteReview() {
+        addReview(SHOW, REVIEW, EventType.DELETE);
+    }
+
+
+    @Test
     public void deletePlatform() {
         addPlatform(SHOW, PLATFORM, EventType.DELETE);
     }
@@ -105,7 +111,10 @@ public class InsertDataTest {
     public void addPlatform() {
         addPlatform(SHOW, PLATFORM, EventType.CREATE);
     }
-
+    @Test
+    public void addReview() {
+        addReview(SHOW, REVIEW, EventType.CREATE);
+    }
     private void addShow(final Show show, final EventType eventType) {
         final InputShowKey inputShowKey = InputShowKey.newBuilder()
                 .setId(generateRandomId())
@@ -130,6 +139,22 @@ public class InsertDataTest {
                 .build();
 
         KafkaManager.sendRecord(PLATFORMS_TOPIC, inputPlatformKey, inputPlatformEvent);
+    }
+
+
+    private void addReview(final Show show, final Review review, final EventType eventType) {
+        final InputReviewKey inputReviewKey = InputReviewKey.newBuilder()
+                .setId(generateRandomId())
+                .build();
+        final InputReviewEvent inputReviewEvent = InputReviewEvent.newBuilder()
+                .setComment(review.comment)
+                .setUid(review.uid)
+                .setRating(review.rating)
+                .setIsan(show.isan)
+                .setEventType(eventType)
+                .build();
+
+        KafkaManager.sendRecord(REVIEWS_TOPIC, inputReviewKey, inputReviewEvent);
     }
 
     private String generateRandomId() {
@@ -159,6 +184,20 @@ public class InsertDataTest {
 
         Platform(final String name) {
             this.name = name;
+        }
+    }
+    private enum Review {
+        GOOD("1", 10, "Impresionante"),
+        BAD("2", 1, "Muy aburrida");
+
+        final String uid;
+        int rating;
+        String comment;
+
+        Review(final String uid, int rating, String comment) {
+            this.uid = uid;
+            this.rating = rating;
+            this.comment = comment;
         }
     }
 }
