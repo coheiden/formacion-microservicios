@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/show", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ShowApiApiControllerImpl implements ShowApiController {
+public class ShowApiControllerImpl  implements ShowApiController{
 
     private final ShowApiService showApiService;
 
     @Autowired
-    public ShowApiApiControllerImpl(final ShowApiService showApiService) {
+    public ShowApiControllerImpl(final ShowApiService showApiService) {
         this.showApiService = showApiService;
     }
 
     @Override
     @GetMapping("/all")
-    public ResponseEntity<ShowDto[]> retrieveAllShows() {
+    public ResponseEntity<ShowDto[]> retrieveAllShow() {
         final ShowDto[] shows = showApiService.retrieveAllShows();
-
         return ResponseEntity.ok(shows);
     }
 
     @Override
     @GetMapping(value = "/{identifier}")
+
     public ResponseEntity<ShowDto> retrieveShowById(@PathVariable("identifier") final String identifier) {
         return showApiService.retrieveShowByIdentifier(identifier).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

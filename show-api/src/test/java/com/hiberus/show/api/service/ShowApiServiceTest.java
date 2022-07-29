@@ -15,13 +15,10 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-
 @RunWith(MockitoJUnitRunner.class)
 public class ShowApiServiceTest {
-
     @Mock
     private ShowApiRepository showApiRepository;
-
     @InjectMocks
     private ShowApiServiceImpl showApiService;
 
@@ -34,10 +31,10 @@ public class ShowApiServiceTest {
                 .availablePlatforms(Collections.singletonList("HBO").toArray(new String[0]))
                 .identifier("1")
                 .name("Tenet")
+                .reviews(null)
                 .build()));
         assertThat(showApiService.retrieveAllShows().length).isEqualTo(1);
     }
-
     @Test
     public void testRetrieveShowById() {
         when(showApiRepository.findById("1")).thenReturn(Optional.of(Show.builder()
@@ -53,6 +50,7 @@ public class ShowApiServiceTest {
                 .availablePlatforms(Collections.singletonList("HBO").toArray(new String[0]))
                 .identifier("1")
                 .title("Tenet")
+                .reviews(null)
                 .build());
         assertThat(showApiService.retrieveShowByIdentifier("2")).isEmpty();
     }

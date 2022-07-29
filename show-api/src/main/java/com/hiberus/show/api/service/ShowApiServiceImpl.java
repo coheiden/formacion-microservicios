@@ -18,7 +18,8 @@ public class ShowApiServiceImpl implements ShowApiService {
 
     @Override
     public ShowDto[] retrieveAllShows() {
-        return showApiRepository.findAll().stream().map(showMapper::mapShow).toArray(ShowDto[]::new);
+        final List<Show> shows = showApiRepository.findAll();
+        return shows.stream().map(showMapper::mapShow).toArray(ShowDto[]::new);
     }
 
     @Override
