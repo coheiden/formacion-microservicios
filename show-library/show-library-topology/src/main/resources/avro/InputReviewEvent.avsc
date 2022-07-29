@@ -1,0 +1,36 @@
+{
+  "type": "record",
+  "namespace": "com.hiberus.show.library.topology",
+  "name": "InputReviewEvent",
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string"
+    },
+    {
+      "name": "isan",
+      "type": "string"
+    },
+    {
+      "name": "rating",
+      "type": "int"
+    },
+    {
+      "name": "comment",
+      "type": "string"
+    },
+    {
+      "name": "eventType",
+      "type": {
+        "type": "enum",
+        "name": "EventType",
+        "namespace": "com.hiberus.show.library.topology",
+        "symbols": [
+          "CREATE",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    }
+  ]
+}

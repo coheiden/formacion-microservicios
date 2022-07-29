@@ -14,14 +14,7 @@
     {
       "name": "eventType",
       "type": {
-        "type": "enum",
-        "name": "EventType",
-        "namespace": "com.hiberus.show.library.topology",
-        "symbols": [
-          "CREATE",
-          "UPDATE",
-          "DELETE"
-        ]
+        "type": "EventType"
       }
     }
   ]

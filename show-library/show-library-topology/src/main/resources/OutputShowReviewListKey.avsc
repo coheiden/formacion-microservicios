@@ -1,7 +1,7 @@
 {
   "type": "record",
   "namespace": "com.hiberus.show.library.topology",
-  "name": "OutputShowPlatformListKey",
+  "name": "OutputShowReviewListKey",
   "fields": [
     { "name": "isan", "type": "string" }
   ]

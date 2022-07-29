@@ -1,13 +1,17 @@
 {
   "type": "record",
   "namespace": "com.hiberus.show.library.topology",
-  "name": "PlatformListEvent",
+  "name": "OutputShowReviewListEvent",
   "fields": [
     {
-      "name": "platforms",
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "reviews",
       "type": {
         "type": "array",
-        "items": "string"
+        "items": "com.hiberus.show.library.topology.InputReviewEvent"
       }
     },
     {

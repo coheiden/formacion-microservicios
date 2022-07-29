@@ -1,7 +1,7 @@
 {
   "type": "record",
   "namespace": "com.hiberus.show.library.topology",
-  "name": "OutputShowPlatformListEvent",
+  "name": "OutputShowListEvent",
   "fields": [
     {
       "name": "name",
@@ -15,16 +15,16 @@
       }
     },
     {
+      "name": "reviews",
+      "type": {
+        "type": "array",
+        "items": "com.hiberus.show.library.topology.InputReviewEvent"
+      }
+    },
+    {
       "name": "eventType",
       "type": {
-        "type": "enum",
-        "name": "EventType",
-        "namespace": "com.hiberus.show.library.topology",
-        "symbols": [
-          "CREATE",
-          "UPDATE",
-          "DELETE"
-        ]
+        "type": "EventType"
       }
     }
   ]

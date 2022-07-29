@@ -48,6 +48,9 @@
                         </goals>
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+                            <imports>
+                                <import>${project.basedir}/src/main/resources/avro/InputReviewEvent.avsc</import>
+                            </imports>
                             <fieldVisibility>PRIVATE</fieldVisibility>
                         </configuration>
                     </execution>
@@ -68,5 +71,7 @@
                 </executions>
             </plugin>
         </plugins>
+
+
     </build>
 </project>

@@ -9,7 +9,9 @@ import lombok.Value;
 @Builder
 @JsonPropertyOrder(alphabetic = true)
 public class ReviewDto {
-
+    String identifier;
+    String uid;
+    String isan;
     int rating;
     String comment;
 }
