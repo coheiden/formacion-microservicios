@@ -1,9 +1,10 @@
 package com.hiberus.show.sink.service;
 
-import com.hiberus.show.library.topology.OutputShowPlatformListEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+
+import com.hiberus.show.library.topology.OutputShowListEvent;
+import com.hiberus.show.library.topology.OutputShowListKey;
 
 public interface ShowSinkService {
 
-    void performOperation(final OutputShowPlatformListKey key, final OutputShowPlatformListEvent value);
+    void performOperation(final OutputShowListKey key, final OutputShowListEvent value);
 }

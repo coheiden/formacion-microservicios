@@ -1,8 +1,8 @@
 package com.hiberus.show.sink.service;
 
 import com.hiberus.show.library.repository.Show;
-import com.hiberus.show.library.topology.OutputShowPlatformListEvent;
-import com.hiberus.show.library.topology.OutputShowPlatformListKey;
+import com.hiberus.show.library.topology.OutputShowListEvent;
+import com.hiberus.show.library.topology.OutputShowListKey;
 import com.hiberus.show.sink.mapper.ShowMapper;
 import com.hiberus.show.sink.repository.ShowSinkRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ShowSinkServiceImpl implements ShowSinkService {
     private final ShowSinkRepository showSinkRepository;
 
     @Override
-    public void performOperation(final OutputShowPlatformListKey key, final OutputShowPlatformListEvent value) {
+    public void performOperation(final OutputShowListKey key, final OutputShowListEvent value) {
         switch (value.getEventType()) {
             case CREATE:
             case UPDATE:
