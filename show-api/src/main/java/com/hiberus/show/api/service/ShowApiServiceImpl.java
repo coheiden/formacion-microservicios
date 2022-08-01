@@ -3,10 +3,12 @@ package com.hiberus.show.api.service;
 import com.hiberus.show.api.mapper.ShowMapper;
 import com.hiberus.show.api.repository.ShowApiRepository;
 import com.hiberus.show.library.dto.ShowDto;
+import com.hiberus.show.library.repository.Show;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service

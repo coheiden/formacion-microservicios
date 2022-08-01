@@ -23,18 +23,18 @@ public class ShowApiControllerTest {
     private ShowApiService showApiService;
 
     @InjectMocks
-    private ShowApiApiControllerImpl showApiApiController;
+    private ShowApiControllerImpl showApiController;
 
     @Test
     public void testRetrieveByIdNotFound() {
         when(showApiService.retrieveShowByIdentifier("1")).thenReturn(Optional.empty());
-        assertThat(showApiApiController.retrieveShowById("1").getStatusCode()).isEqualByComparingTo(HttpStatus.NOT_FOUND);
+        assertThat(showApiController.retrieveShowById("1").getStatusCode()).isEqualByComparingTo(HttpStatus.NOT_FOUND);
 
         when(showApiService.retrieveShowByIdentifier("1")).thenReturn(Optional.of(ShowDto.builder()
                 .identifier("1")
                 .title("Tenet")
                 .build()));
-        assertThat(showApiApiController.retrieveShowById("1")).satisfies(r -> {
+        assertThat(showApiController.retrieveShowById("1")).satisfies(r -> {
             assertThat(r.getStatusCode()).isEqualTo(HttpStatus.OK);
             assertThat(r.getBody()).isEqualTo(ShowDto.builder()
                     .identifier("1")
@@ -46,7 +46,7 @@ public class ShowApiControllerTest {
     @Test
     public void testRetrieveAllShows() {
         when(showApiService.retrieveAllShows()).thenReturn(new ShowDto[0]);
-        assertThat(showApiApiController.retrieveAllShows()).satisfies(r -> {
+        assertThat(showApiController.retrieveAllShows()).satisfies(r -> {
             assertThat(r.getStatusCode()).isEqualTo(HttpStatus.OK);
             assertThat(r.getBody()).isEmpty();
         });
@@ -59,7 +59,7 @@ public class ShowApiControllerTest {
                         .rating(8)
                         .build()).toArray(new ReviewDto[0]))
                 .build()).toArray(new ShowDto[0]));
-        assertThat(showApiApiController.retrieveAllShows()).satisfies(r -> {
+        assertThat(showApiController.retrieveAllShows()).satisfies(r -> {
             assertThat(r.getStatusCode()).isEqualTo(HttpStatus.OK);
             assertThat(r.getBody()).hasSize(1);
         });

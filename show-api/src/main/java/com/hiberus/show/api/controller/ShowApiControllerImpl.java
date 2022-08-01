@@ -23,7 +23,7 @@ public class ShowApiControllerImpl  implements ShowApiController{
 
     @Override
     @GetMapping("/all")
-    public ResponseEntity<ShowDto[]> retrieveAllShow() {
+    public ResponseEntity<ShowDto[]> retrieveAllShows() {
         final ShowDto[] shows = showApiService.retrieveAllShows();
         return ResponseEntity.ok(shows);
     }

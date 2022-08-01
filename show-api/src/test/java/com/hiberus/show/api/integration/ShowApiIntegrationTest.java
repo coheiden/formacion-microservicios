@@ -2,6 +2,7 @@ package com.hiberus.show.api.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hiberus.show.api.ShowApiApplication;
+import com.hiberus.show.api.config.ShowApiConfig;
 import com.hiberus.show.library.dto.ShowDto;
 import com.hiberus.show.library.repository.Show;
 import org.junit.Before;

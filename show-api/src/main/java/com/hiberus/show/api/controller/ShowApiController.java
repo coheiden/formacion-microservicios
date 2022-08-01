@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 
 public interface ShowApiController {
-
     @ApiOperation(value = "Returns all shows stored in the database")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Data found", response = ShowDto[].class)
